@@ -1,6 +1,9 @@
 package com.tmansonetto.workshopmongo.resources;
 
 import com.tmansonetto.workshopmongo.domain.User;
+import com.tmansonetto.workshopmongo.repository.UserRepository;
+import com.tmansonetto.workshopmongo.services.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,15 +17,14 @@ import java.util.List;
 @RequestMapping (value = "/users")
 public class UserResource {
 
+    @Autowired
+    private UserService service;
+
     @RequestMapping(method = RequestMethod.GET)
     //ou pode ser defindo o get da seguinte forma @GetMapping
     public ResponseEntity<List<User>> findAll() {
-        List<User> users = new ArrayList<User>();
-        User maria = new User("1","Maria Silva","maria@gmail.com");
-        User alex = new User("2","Rita Lee","rita@gmail.com");
-        List<User> list =  new ArrayList<>();
-        list.addAll(Arrays.asList(maria,alex));
-        return ResponseEntity.ok().body(list);
+        List<User> users = service.findAll();
+        return ResponseEntity.ok().body(users);
     }
 
 }
