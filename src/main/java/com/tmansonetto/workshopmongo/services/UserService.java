@@ -1,6 +1,7 @@
 package com.tmansonetto.workshopmongo.services;
 
 import com.tmansonetto.workshopmongo.domain.User;
+import com.tmansonetto.workshopmongo.dto.UserDTO;
 import com.tmansonetto.workshopmongo.repository.UserRepository;
 import com.tmansonetto.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,4 +23,12 @@ public class UserService {
         return repo.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("User not found"));
     }
+    public User insert (User user) {
+        return repo.insert(user);
+    }
+public User fromDTO (UserDTO dto) {
+        return new User(dto.getId(),dto.getName(),dto.getEmail());
+}
+
+
 }
