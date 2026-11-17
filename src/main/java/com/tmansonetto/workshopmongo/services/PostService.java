@@ -6,6 +6,7 @@ import com.tmansonetto.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,6 +24,11 @@ public class PostService {
 
     public List<Post> findByTitleContaining(String title) {
         return repo.findByTitleContainingIgnoreCase(title);
+    }
+
+    public List<Post> fullSearch(String title, Date minDate, Date maxDate) {
+        maxDate = new  Date(maxDate.getTime()+24*60*60*1000);
+        return repo.fullSearch(title, minDate, maxDate);
     }
 
 }
