@@ -6,6 +6,8 @@ import com.tmansonetto.workshopmongo.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class PostService {
@@ -17,6 +19,10 @@ public class PostService {
         return repo.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException(
                         String.format("Post with id %s not found", id)));
+    }
+
+    public List<Post> findByTitleContaining(String title) {
+        return repo.findByTitleContainingIgnoreCase(title);
     }
 
 }
